@@ -40,14 +40,19 @@ public class ContaCorrente {
     }
 
     public void depositar(BigDecimal valor) {
-        if (this.getStatus())
-            System.out.printf("A conta nº %d, em nome de %s foi cancelada. Reabra a conta para utilizar.%n", this.getNumeroConta(), this.getNomeCliente());
-        else if (valor.signum() <= 0) {
+        try {
+            if (this.getStatus())
+                System.out.printf("A conta nº %d, em nome de %s foi cancelada. Reabra a conta para utilizar.%n", this.getNumeroConta(), this.getNomeCliente());
+            else if (valor.signum() <= 0) {
                 System.out.println("O valor do depósito deve ser superior a zero!");
-        } else {
-            this.saldo = saldo.add(valor);
-            this.historicoTransacoes.add(new DadosOperacao("depósito", valor.setScale(2, RoundingMode.HALF_EVEN)));
+            } else {
+                this.saldo = saldo.add(valor);
+                this.historicoTransacoes.add(new DadosOperacao("depósito", valor.setScale(2, RoundingMode.HALF_EVEN)));
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Valor do depósito não pode ser nulo.");
         }
+
     }
 
     public void transferirValor(BigDecimal valor, ContaCorrente contaDestino) {
@@ -79,9 +84,11 @@ public class ContaCorrente {
 
     public void pegarExtrato(LocalDateTime inicio, LocalDateTime fim) {
         try {
+            System.out.println("agência: " + this.getNumeroAgencia() + "\nconta: " + this.getNumeroConta());
             historicoTransacoes.stream().
                     filter(t -> t.getHoraOperacao().isAfter(inicio) && t.getHoraOperacao().isBefore(fim))
                     .forEach(System.out::println);
+            System.out.println("saldo atual: " + this.getSaldo());
         } catch (NullPointerException e) {
             System.out.println("Valores de data não podem ser nulos.");
         }
@@ -104,4 +111,6 @@ public class ContaCorrente {
     }
 
     public String getJustificativaCancelamento(){return this.justificativaCancelamento; }
+
+    public int getNumeroAgencia() {return this.numeroAgencia; }
 }

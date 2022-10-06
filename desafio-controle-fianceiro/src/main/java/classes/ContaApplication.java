@@ -9,7 +9,7 @@ public class ContaApplication {
 
         ContaCorrente conta01 = new ContaCorrente("Rubens Souza", LocalDate.of(1984, 4, 23) , BigDecimal.valueOf(1000.00));
         ContaCorrente conta02 = new ContaCorrente("Grupo 06", LocalDate.of(2022, 10, 1) , BigDecimal.valueOf(500.00));
-        
+
         conta01.sacar(BigDecimal.valueOf(100.00));
         conta01.sacar(BigDecimal.valueOf(1000.00));
         conta01.sacar(BigDecimal.valueOf(-1000.00));
@@ -41,7 +41,7 @@ public class ContaApplication {
         conta01.reabrirConta("Reabertura sem mootivo, erro.");
         System.out.println(conta01.getStatus() + "\n" + conta01.getJustificativaCancelamento());
 
-        conta01.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.of(2022, 10,5, 23, 59));
+        conta01.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
         conta02.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
     }
 }
