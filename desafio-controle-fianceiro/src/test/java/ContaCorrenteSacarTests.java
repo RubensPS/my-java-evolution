@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ContaCorrenteSacarTests {
 
     ContaCorrenteDouble conta01;
-    ContaCorrenteDouble conta02;
 
     @BeforeEach
     void setUp() {
