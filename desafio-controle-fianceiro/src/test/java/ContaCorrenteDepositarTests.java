@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ContaClienteDepositarTests {
+public class ContaCorrenteDepositarTests {
 
     ContaCorrenteDouble conta01;
 
