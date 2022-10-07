@@ -7,22 +7,10 @@ import java.time.LocalTime;
 
 public class ContaDoubleApplication {
     public static void main(String[] args) {
-        ContaCorrenteComDouble conta01 = new ContaCorrenteComDouble("Rubens Souza", LocalDate.of(1984, 4, 23) , 1000.00);
-        ContaCorrenteComDouble conta02 = new ContaCorrenteComDouble("Grupo 06", LocalDate.of(2022, 10, 1) , 500.00);
+        ContaCorrenteDouble conta01 = new ContaCorrenteDouble("Rubens Souza", LocalDate.of(1984, 4, 23) , 1000.00);
+        ContaCorrenteDouble conta02 = new ContaCorrenteDouble("Grupo 06", LocalDate.of(2022, 10, 1) , 500.00);
 
-//        //sacar
-//        try {
-//            System.out.println("Saldo: " + conta01.getSaldo());
-//            conta01.sacar(TiposdeOperacao.SAQUE, 100.00);
-//            conta01.sacar(TiposdeOperacao.SAQUE, 1000.00);
-//            conta01.sacar(TiposdeOperacao.SAQUE, -1000.00);
-//        } catch (ContaCanceladaException | SaldoInsuficienteException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            System.out.println(conta01.getSaldo());
-//        }
-//
-//        //depósito
+        //depósito
 //        try {
 //            conta01.depositar(TiposdeOperacao.DEPOSITO, 85.00);
 //            conta01.depositar(TiposdeOperacao.DEPOSITO, -85.00);
@@ -35,7 +23,7 @@ public class ContaDoubleApplication {
 //            System.out.println(conta01.getSaldo());
 //        }
 //
-//        //transferir
+        //transferir
 //        try {
 //            conta01.transferirValor(130.00, conta02);
 //            conta01.transferirValor(-100.00, conta02);
@@ -46,7 +34,7 @@ public class ContaDoubleApplication {
 //            System.out.printf("conta01: %.2f - conta02: %.2f%n", conta01.getSaldo(), conta02.getSaldo());
 //        }
 //
-//        //cancelamento
+        //cancelamento
 //        try {
 //            conta01.cancelarConta("");
 //            conta01.cancelarConta("     ");
@@ -64,7 +52,7 @@ public class ContaDoubleApplication {
 //            System.out.println(conta01.getContaCancelada() + "\n" + conta01.getJustificativaCancelamento());
 //        }
 //
-//        //reabertura
+        //reabertura
 //        try {
 //            conta01.reabrirConta("Reabertura para empréstimo imobiliário.");
 //            conta01.reabrirConta(null);

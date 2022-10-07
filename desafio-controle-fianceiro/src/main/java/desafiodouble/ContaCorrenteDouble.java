@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ContaCorrenteComDouble {
+public class ContaCorrenteDouble {
     private final int numeroAgencia;
     private final int numeroConta;
     private String nomeCliente;
@@ -18,7 +18,7 @@ public class ContaCorrenteComDouble {
     private String justificativaCancelamento;
     private List<RegistroOperacaoComDouble> historicoTransacoes;
 
-    public ContaCorrenteComDouble(String nomeCliente, LocalDate dataNascimento, Double saldo) {
+    public ContaCorrenteDouble(String nomeCliente, LocalDate dataNascimento, Double saldo) {
         Random r = new Random();
         numeroAgencia = r.nextInt(1000);
         numeroConta = r.nextInt(1000);
@@ -33,6 +33,8 @@ public class ContaCorrenteComDouble {
     public void sacar(TiposdeOperacao operacao, Double valor) throws ContaCanceladaException, SaldoInsuficienteException {
         if (this.getContaCancelada())
             throw new ContaCanceladaException(this.getNumeroConta(), this.getNomeCliente());
+        else if (valor == null)
+            throw new NullPointerException("O valor do saque não pode ser nulo.");
         else if (this.getSaldo()>=valor && valor > 0) {
             this.saldo -= valor;
             this.historicoTransacoes.add(new RegistroOperacaoComDouble(operacao, valor));
@@ -50,7 +52,7 @@ public class ContaCorrenteComDouble {
             }
     }
 
-    public void transferirValor(Double valor, ContaCorrenteComDouble contaDestino) throws SaldoInsuficienteException, ContaCanceladaException, DepositoInvalidoException {
+    public void transferirValor(Double valor, ContaCorrenteDouble contaDestino) throws SaldoInsuficienteException, ContaCanceladaException, DepositoInvalidoException {
         if (this.getContaCancelada())
             throw new ContaCanceladaException(this.getNumeroConta(), this.getNomeCliente());
         else if (contaDestino.getContaCancelada())
@@ -116,5 +118,7 @@ public class ContaCorrenteComDouble {
     public String getJustificativaCancelamento(){return this.justificativaCancelamento; }
 
     public int getNumeroAgencia() {return this.numeroAgencia; }
+
+    public List<RegistroOperacaoComDouble> getHistoricoTransacoes() {return this.historicoTransacoes; }
 
 }
