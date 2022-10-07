@@ -20,50 +20,50 @@ public class ContaCorrenteSacarTests {
     @BeforeEach
     void setUp() {
         conta01 = new ContaCorrenteDouble("Rubens Souza", LocalDate.of(1984, 4, 23) , 1000.00);
-        conta02 = new ContaCorrenteDouble("Grupo 06", LocalDate.of(2022, 10, 1) , 1000.00);
     }
 
     @DisplayName("Teste de sacar() com conta cancelada")
     @Test
-    void saqueContaCancelada() throws JustificativaInvalidaException, ContaPreviamenteCanceladaException, SaldoInsuficienteException, ContaCanceladaException {
+    void sacarContaCancelada() throws JustificativaInvalidaException, ContaPreviamenteCanceladaException, SaldoInsuficienteException, ContaCanceladaException {
         conta01.cancelarConta("Teste de saque com conta cancelada.");
         ContaCanceladaException exception = assertThrows(ContaCanceladaException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, 100.00));
         assertEquals(String.format("A conta nº %d, em nome de %s foi cancelada. Reabra a conta para utilizar.", conta01.getNumeroConta(), conta01.getNomeCliente()), exception.getMessage());
+        assertEquals("Teste de saque com conta cancelada.", conta01.getJustificativaCancelamento());
     }
 
     @DisplayName("Teste de sacar() com valor nulo")
     @Test
-    void saqueNuloTest() {
+    void sacarValorNulo() {
        NullPointerException exception = assertThrows(NullPointerException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, null));
         assertEquals("O valor do saque não pode ser nulo.", exception.getMessage());
     }
 
     @DisplayName("Teste de sacar() com valor zero")
     @Test
-    void saqueZero() {
+    void sacarValorZero() {
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, 0.0));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
     }
 
     @DisplayName("Teste de sacar() com valor negativo")
     @Test
-    void saqueNegativo() {
+    void sacarValorNegativo() {
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, -100.0));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
     }
 
     @DisplayName("Teste de sacar() com valor maior que o saldo")
     @Test
-    void saqueValorMaiorQueSaldo() {
+    void sacarValorMaiorQueSaldo() {
         Double valor = 1200.00;
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, valor));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
         assertTrue(valor > conta01.getSaldo());
     }
 
-    @DisplayName("Teste de sacar() com valor positivo")
+    @DisplayName("Teste de sacar() com valor positivo e menor que o saldo")
     @Test
-    void saquePositivo() throws SaldoInsuficienteException, ContaCanceladaException {
+    void sacarValorPositivoMenorQueSaldo() throws SaldoInsuficienteException, ContaCanceladaException {
         Double valor = 100.00;
         conta01.sacar(TiposdeOperacao.SAQUE, valor);
         assertTrue(conta01.getSaldo() > valor);
