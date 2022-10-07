@@ -16,7 +16,7 @@ public class ContaCorrenteComDouble {
     private Double saldo;
     private boolean contaCancelada;
     private String justificativaCancelamento;
-    private List<OperacaoComDouble> historicoTransacoes;
+    private List<RegistroOperacaoComDouble> historicoTransacoes;
 
     public ContaCorrenteComDouble(String nomeCliente, LocalDate dataNascimento, Double saldo) {
         Random r = new Random();
@@ -35,7 +35,7 @@ public class ContaCorrenteComDouble {
             throw new ContaCanceladaException(this.getNumeroConta(), this.getNomeCliente());
         else if (this.getSaldo()>=valor && valor > 0) {
             this.saldo -= valor;
-            this.historicoTransacoes.add(new OperacaoComDouble(operacao, valor));
+            this.historicoTransacoes.add(new RegistroOperacaoComDouble(operacao, valor));
         } else throw new SaldoInsuficienteException(this.getNumeroConta());
     }
 
@@ -46,13 +46,17 @@ public class ContaCorrenteComDouble {
                 throw new DepositoInvalidoException(valor);
             } else {
                 this.saldo += valor;
-                this.historicoTransacoes.add(new OperacaoComDouble(operacao, valor));
+                this.historicoTransacoes.add(new RegistroOperacaoComDouble(operacao, valor));
             }
     }
 
     public void transferirValor(Double valor, ContaCorrenteComDouble contaDestino) throws SaldoInsuficienteException, ContaCanceladaException, DepositoInvalidoException {
+        if (this.getContaCancelada())
+            throw new ContaCanceladaException(this.getNumeroConta(), this.getNomeCliente());
+        else if (contaDestino.getContaCancelada())
+            throw new ContaCanceladaException(contaDestino.getNumeroConta(), contaDestino.getNomeCliente());
         this.sacar(TiposdeOperacao.TRANSFERENCIA, valor);
-        contaDestino.depositar(TiposdeOperacao.DEPOSITO, valor);
+        contaDestino.depositar(TiposdeOperacao.TRANSFERENCIA, valor);
     }
 
     public void cancelarConta(String justificativa) throws JustificativaInvalidaException, ContaPreviamenteCanceladaException {
@@ -86,7 +90,7 @@ public class ContaCorrenteComDouble {
             System.out.println("agência: " + this.getNumeroAgencia() +
                                 "\nconta: " + this.getNumeroConta());
             historicoTransacoes.stream().
-                    filter(t -> t.getHoraOperacao().isAfter(inicio) && t.getHoraOperacao().isBefore(fim))
+                    filter(t -> t.getHoraOperacao().isAfter(inicio) && t.getHoraOperacao().isBefore((fim)))
                     .forEach(System.out::println);
             System.out.println("saldo atual: " + this.getSaldo());
         }

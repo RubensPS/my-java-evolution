@@ -2,12 +2,12 @@ package desafiodouble;
 
 import java.time.LocalDateTime;
 
-public class OperacaoComDouble {
+public class RegistroOperacaoComDouble {
     private final LocalDateTime HORAOPERACAO;
     private final TiposdeOperacao TIPO;
     private final Double VALOR;
 
-    public OperacaoComDouble(TiposdeOperacao tipo, Double valor) {
+    public RegistroOperacaoComDouble(TiposdeOperacao tipo, Double valor) {
         this.HORAOPERACAO = LocalDateTime.now();
         this.TIPO = tipo;
         this.VALOR = valor;
@@ -23,5 +23,14 @@ public class OperacaoComDouble {
 
     public TiposdeOperacao getTipo() {
         return TIPO;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistroOperacaoComDouble{" +
+                "HORAOPERACAO=" + HORAOPERACAO +
+                ", TIPO=" + TIPO +
+                ", VALOR=" + VALOR +
+                '}';
     }
 }
