@@ -44,6 +44,8 @@ public class ContaCorrenteDouble {
     public void depositar(TiposdeOperacao operacao, Double valor) throws ContaCanceladaException, DepositoInvalidoException {
             if (this.getContaCancelada())
                 throw new ContaCanceladaException(this.getNumeroConta(), this.getNomeCliente());
+            else if (valor == null)
+                throw new NullPointerException("O valor do depósito não pode ser nulo.");
             else if (valor <= 0) {
                 throw new DepositoInvalidoException(valor);
             } else {
