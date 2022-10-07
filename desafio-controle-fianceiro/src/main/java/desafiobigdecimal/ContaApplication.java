@@ -1,4 +1,4 @@
-package classes;
+package desafiobigdecimal;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,10 +21,10 @@ public class ContaApplication {
         System.out.println(conta01.getSaldo());
 
         conta01.transferirValor(BigDecimal.valueOf(130.00), conta02);
-        conta01.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0),LocalDateTime.now().plusHours(1));
-        conta02.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
-        conta02.pegarExtrato(null, LocalDateTime.now());
-        conta02.pegarExtrato(LocalDateTime.now().plusDays(1), LocalDateTime.of(2022, 10,4, 0, 0));
+        conta01.consultarExtrato(LocalDateTime.of(2022, 10,4, 0, 0),LocalDateTime.now().plusHours(1));
+        conta02.consultarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
+        conta02.consultarExtrato(null, LocalDateTime.now());
+        conta02.consultarExtrato(LocalDateTime.now().plusDays(1), LocalDateTime.of(2022, 10,4, 0, 0));
 
         conta01.cancelarConta("Fechamento a pedido do cliente.");
         conta01.cancelarConta("Fechamento a pedido do cliente.");
@@ -41,7 +41,7 @@ public class ContaApplication {
         conta01.reabrirConta("Reabertura sem mootivo, erro.");
         System.out.println(conta01.getStatus() + "\n" + conta01.getJustificativaCancelamento());
 
-        conta01.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
-        conta02.pegarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
+        conta01.consultarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
+        conta02.consultarExtrato(LocalDateTime.of(2022, 10,4, 0, 0), LocalDateTime.now().plusHours(1));
     }
 }

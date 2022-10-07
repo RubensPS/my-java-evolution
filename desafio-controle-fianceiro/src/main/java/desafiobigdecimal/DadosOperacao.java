@@ -1,4 +1,4 @@
-package classes;
+package desafiobigdecimal;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

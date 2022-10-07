@@ -1,4 +1,4 @@
-package classes;
+package desafiobigdecimal;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -82,7 +82,7 @@ public class ContaCorrente {
         } else System.out.println("A conta já se encontra ativa!");
     }
 
-    public void pegarExtrato(LocalDateTime inicio, LocalDateTime fim) {
+    public void consultarExtrato(LocalDateTime inicio, LocalDateTime fim) {
         try {
             System.out.println("agência: " + this.getNumeroAgencia() + "\nconta: " + this.getNumeroConta());
             historicoTransacoes.stream().
