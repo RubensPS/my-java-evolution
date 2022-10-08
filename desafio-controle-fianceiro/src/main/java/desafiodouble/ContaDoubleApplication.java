@@ -8,32 +8,8 @@ import java.time.LocalTime;
 public class ContaDoubleApplication {
     public static void main(String[] args) {
         ContaCorrenteDouble conta01 = new ContaCorrenteDouble("Rubens Souza", LocalDate.of(1984, 4, 23) , 1000.00);
-        ContaCorrenteDouble conta02 = new ContaCorrenteDouble("Grupo 06", LocalDate.of(2022, 10, 1) , 500.00);
+        ContaCorrenteDouble conta02 = new ContaCorrenteDouble("Grupo 06", LocalDate.of(2022, 10, 1) , 1000.00);
 
-        //depósito
-//        try {
-//            conta01.depositar(TiposdeOperacao.DEPOSITO, 85.00);
-//            conta01.depositar(TiposdeOperacao.DEPOSITO, -85.00);
-//            conta01.depositar(TiposdeOperacao.DEPOSITO, null);
-//            System.out.println(conta01.getSaldo());
-//
-//        } catch (ContaCanceladaException | DepositoInvalidoException | NullPointerException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            System.out.println(conta01.getSaldo());
-//        }
-//
-        //transferir
-//        try {
-//            conta01.transferirValor(130.00, conta02);
-//            conta01.transferirValor(-100.00, conta02);
-//            conta01.transferirValor(0.00, conta02);
-//        }catch (ContaCanceladaException | SaldoInsuficienteException | DepositoInvalidoException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            System.out.printf("conta01: %.2f - conta02: %.2f%n", conta01.getSaldo(), conta02.getSaldo());
-//        }
-//
         //cancelamento
 //        try {
 //            conta01.cancelarConta("");
