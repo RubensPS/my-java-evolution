@@ -28,6 +28,8 @@ public class ContaCorrenteSacarTests {
         ContaCanceladaException exception = assertThrows(ContaCanceladaException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, 100.00));
         assertEquals(String.format("A conta nº %d, em nome de %s foi cancelada. Reabra a conta para utilizar.", conta01.getNumeroConta(), conta01.getNomeCliente()), exception.getMessage());
         assertEquals("Teste de saque com conta cancelada.", conta01.getJustificativaCancelamento());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de sacar() com valor nulo")
@@ -35,6 +37,8 @@ public class ContaCorrenteSacarTests {
     void sacarValorNulo() {
        NullPointerException exception = assertThrows(NullPointerException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, null));
         assertEquals("O valor do saque não pode ser nulo.", exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de sacar() com valor zero")
@@ -42,6 +46,8 @@ public class ContaCorrenteSacarTests {
     void sacarValorZero() {
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, 0.0));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de sacar() com valor negativo")
@@ -49,6 +55,8 @@ public class ContaCorrenteSacarTests {
     void sacarValorNegativo() {
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, -100.0));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de sacar() com valor maior que o saldo")
@@ -58,6 +66,8 @@ public class ContaCorrenteSacarTests {
         SaldoInsuficienteException exception = assertThrows(SaldoInsuficienteException.class, () -> conta01.sacar(TiposdeOperacao.SAQUE, valor));
         assertEquals(String.format("O saldo da conta nº %d é insuficiente para o saque!", conta01.getNumeroConta()), exception.getMessage());
         assertTrue(valor > conta01.getSaldo());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de sacar() com valor positivo e menor que o saldo")
