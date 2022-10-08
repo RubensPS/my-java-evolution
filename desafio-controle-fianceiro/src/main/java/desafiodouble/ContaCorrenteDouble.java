@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ContaCorrenteDouble {
     private final int numeroAgencia;
@@ -81,22 +82,19 @@ public class ContaCorrenteDouble {
             throw new ContaAtivaException(this.getNumeroConta());
         else {
         this.contaCancelada = false;
-        this.justificativaCancelamento = "Conta Ativa";
+        this.justificativaCancelamento = justificativa;
         }
     }
 
-    public void consultarExtrato(LocalDateTime inicio, LocalDateTime fim) {
+    public List<RegistroOperacaoComDouble> consultarExtrato(LocalDateTime inicio, LocalDateTime fim) {
         if (inicio == null || fim ==null)
             throw new NullPointerException("As datas de início e fim não podem ser nulas.");
         else if (inicio.isAfter(fim))
             throw new IllegalArgumentException("A data inicial precisa ser inferior à data final.");
         else {
-            System.out.println("agência: " + this.getNumeroAgencia() +
-                                "\nconta: " + this.getNumeroConta());
-            historicoTransacoes.stream().
+            return historicoTransacoes.stream().
                     filter(t -> t.getHoraOperacao().isAfter(inicio) && t.getHoraOperacao().isBefore((fim)))
-                    .forEach(System.out::println);
-            System.out.println("saldo atual: " + this.getSaldo());
+                    .toList();
         }
     }
 
