@@ -28,6 +28,8 @@ public class ContaCorrenteDepositarTests {
         ContaCanceladaException exception = assertThrows(ContaCanceladaException.class, () -> conta01.depositar(TiposdeOperacao.DEPOSITO, 100.00));
         assertEquals(String.format("A conta nº %d, em nome de %s foi cancelada. Reabra a conta para utilizar.", conta01.getNumeroConta(), conta01.getNomeCliente()), exception.getMessage());
         assertEquals("Teste de deposito com conta cancelada.", conta01.getJustificativaCancelamento());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de depositar() com valor igual a zero")
@@ -36,6 +38,8 @@ public class ContaCorrenteDepositarTests {
         Double valor = 0.00;
         DepositoInvalidoException exception = assertThrows(DepositoInvalidoException.class, () -> conta01.depositar(TiposdeOperacao.DEPOSITO, valor));
         assertEquals(String.format("Valor de depósito inválido. Valor: %.2f", valor), exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de depositar() com valor negativo")
@@ -44,6 +48,8 @@ public class ContaCorrenteDepositarTests {
         Double valor = -100.00;
         DepositoInvalidoException exception = assertThrows(DepositoInvalidoException.class, () -> conta01.depositar(TiposdeOperacao.DEPOSITO, valor));
         assertEquals(String.format("Valor de depósito inválido. Valor: %.2f", valor), exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de depositar() com valor nulo")
@@ -52,6 +58,8 @@ public class ContaCorrenteDepositarTests {
         Double valor = null;
         NullPointerException exception = assertThrows(NullPointerException.class, () -> conta01.depositar(TiposdeOperacao.DEPOSITO, valor));
         assertEquals(String.format("O valor do depósito não pode ser nulo."), exception.getMessage());
+        assertEquals(0, conta01.getHistoricoTransacoes().size());
+        assertEquals(1000, conta01.getSaldo());
     }
 
     @DisplayName("Teste de depositar() com valor positivo")
