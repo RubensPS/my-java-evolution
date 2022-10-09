@@ -1,34 +1,42 @@
 package desafiodouble;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class RegistroOperacaoComDouble {
-    private final LocalDateTime HORAOPERACAO;
+    private final LocalDate DIAOPERACAO;
+    private final LocalTime HORAOPERACAO;
     private final TiposdeOperacao TIPO;
     private final Double VALOR;
 
     public RegistroOperacaoComDouble(TiposdeOperacao tipo, Double valor) {
-        this.HORAOPERACAO = LocalDateTime.now();
+        this.DIAOPERACAO = LocalDate.now();
+        this.HORAOPERACAO = LocalTime.now();
         this.TIPO = tipo;
         this.VALOR = valor;
     }
 
-    public Double getValor() {
-        return VALOR;
+    public LocalDate getDIAOPERACAO() {
+        return DIAOPERACAO;
     }
 
-    public LocalDateTime getHoraOperacao() {
+    public LocalTime getHORAOPERACAO() {
         return HORAOPERACAO;
     }
 
-    public TiposdeOperacao getTipo() {
+    public TiposdeOperacao getTIPO() {
         return TIPO;
+    }
+
+    public Double getVALOR() {
+        return VALOR;
     }
 
     @Override
     public String toString() {
         return "RegistroOperacaoComDouble{" +
-                "HORAOPERACAO=" + HORAOPERACAO +
+                "DIAOPERACAO=" + DIAOPERACAO +
+                ", HORAOPERACAO=" + HORAOPERACAO +
                 ", TIPO=" + TIPO +
                 ", VALOR=" + VALOR +
                 '}';

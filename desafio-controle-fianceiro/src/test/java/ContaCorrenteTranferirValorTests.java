@@ -102,9 +102,9 @@ public class ContaCorrenteTranferirValorTests {
         assertTrue(conta01.getSaldo() > valor);
         assertEquals(900.00, conta01.getSaldo());
         assertEquals(1, conta01.getHistoricoTransacoes().size());
-        assertEquals(valor, conta01.getHistoricoTransacoes().get(0).getValor());
+        assertEquals(valor, conta01.getHistoricoTransacoes().get(0).getVALOR());
         assertEquals(1100.00, conta02.getSaldo());
         assertEquals(1, conta02.getHistoricoTransacoes().size());
-        assertEquals(100.00, conta02.getHistoricoTransacoes().get(0).getValor());
+        assertEquals(100.00, conta02.getHistoricoTransacoes().get(0).getVALOR());
     }
 }

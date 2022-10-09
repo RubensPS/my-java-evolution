@@ -57,7 +57,7 @@ public class ContaCorrenteDepositarTests {
     void depositarValorNulo() {
         Double valor = null;
         NullPointerException exception = assertThrows(NullPointerException.class, () -> conta01.depositar(TiposdeOperacao.DEPOSITO, valor));
-        assertEquals(String.format("O valor do depósito não pode ser nulo."), exception.getMessage());
+        assertEquals("O valor do depósito não pode ser nulo.", exception.getMessage());
         assertEquals(0, conta01.getHistoricoTransacoes().size());
         assertEquals(1000, conta01.getSaldo());
     }
@@ -68,7 +68,7 @@ public class ContaCorrenteDepositarTests {
         conta01.depositar(TiposdeOperacao.DEPOSITO, 100.00);
         assertEquals(1100.00, conta01.getSaldo());
         assertEquals(1, conta01.getHistoricoTransacoes().size());
-        assertEquals(100.00, conta01.getHistoricoTransacoes().get(0).getValor());
+        assertEquals(100.00, conta01.getHistoricoTransacoes().get(0).getVALOR());
     }
 
 }

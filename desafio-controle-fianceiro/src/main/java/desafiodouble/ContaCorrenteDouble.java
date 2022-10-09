@@ -3,11 +3,9 @@ package desafiodouble;
 import desafiodouble.exceptions.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ContaCorrenteDouble {
     private final int numeroAgencia;
@@ -86,14 +84,14 @@ public class ContaCorrenteDouble {
         }
     }
 
-    public List<RegistroOperacaoComDouble> consultarExtrato(LocalDateTime inicio, LocalDateTime fim) {
+    public List<RegistroOperacaoComDouble> consultarExtrato(LocalDate inicio, LocalDate fim) {
         if (inicio == null || fim ==null)
             throw new NullPointerException("As datas de início e fim não podem ser nulas.");
         else if (inicio.isAfter(fim))
             throw new IllegalArgumentException("A data inicial precisa ser inferior à data final.");
         else {
             return historicoTransacoes.stream().
-                    filter(t -> t.getHoraOperacao().isAfter(inicio) && t.getHoraOperacao().isBefore((fim)))
+                    filter(t -> t.getDIAOPERACAO().isAfter(inicio) && t.getDIAOPERACAO().isBefore((fim)))
                     .toList();
         }
     }

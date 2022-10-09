@@ -78,7 +78,7 @@ public class ContaCorrenteSacarTests {
         assertTrue(conta01.getSaldo() > valor);
         assertEquals(900.00, conta01.getSaldo());
         assertEquals(1, conta01.getHistoricoTransacoes().size());
-        assertEquals(100, conta01.getHistoricoTransacoes().get(0).getValor());
+        assertEquals(100, conta01.getHistoricoTransacoes().get(0).getVALOR());
     }
 
 

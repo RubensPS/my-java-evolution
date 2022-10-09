@@ -2,8 +2,6 @@ package desafiodouble;
 
 import desafiodouble.exceptions.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class ContaDoubleApplication {
     public static void main(String[] args) {
@@ -19,10 +17,10 @@ public class ContaDoubleApplication {
         } catch (ContaCanceladaException | SaldoInsuficienteException | DepositoInvalidoException e) {
             System.out.println(e.getMessage());
         } finally {
-            System.out.println(conta01.consultarExtrato(LocalDateTime.of(LocalDate.of(2022,10,7), LocalTime.MIN),
-                    LocalDateTime.of(LocalDate.of(2022,10,10), LocalTime.MAX)));
-            System.out.println(conta02.consultarExtrato(LocalDateTime.of(LocalDate.of(2022,10,7),
-                    LocalTime.MIN), LocalDateTime.of(LocalDate.of(2022,10,10), LocalTime.MAX)));
+            System.out.println(conta01.consultarExtrato(LocalDate.of(2022,10,7),
+                    LocalDate.of(2022,10,10)));
+            System.out.println(conta02.consultarExtrato(LocalDate.of(2022,10,7),
+                    LocalDate.of(2022,10,10)));
         }
 
 

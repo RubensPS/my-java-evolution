@@ -62,6 +62,5 @@ public class ContaCorrenteCancelarTests {
         conta01.cancelarConta(justificativa);
         assertEquals(justificativa, conta01.getJustificativaCancelamento());
         assertTrue(conta01.getContaCancelada());
-
     }
 }
