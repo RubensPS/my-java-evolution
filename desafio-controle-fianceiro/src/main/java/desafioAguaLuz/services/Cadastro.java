@@ -43,7 +43,7 @@ public class Cadastro {
         String pais = cadastro.substring(153,155).trim();
         String protocolo = cadastro.substring(155,165).trim();
         String dataHora = formatarDataHora(cadastro.substring(165,177).trim());
-        String tipoServico = TipoServico.getServico(cadastro.substring(177,178).trim());
+        TipoServico servico = TipoServico.getServico(cadastro.substring(177,178).trim());
         String valorServico = formatarValor(cadastro.substring(178,186).trim());
         String tipoNotificacao = cadastro.substring(186).trim();
 
@@ -51,7 +51,7 @@ public class Cadastro {
         sb.append(String.format("Senhor(a) %s, cpf de número %s.%n",nome,cpf));
         sb.append(String.format("Informamos que conforme contrato com protocolo de número %s ",protocolo));
         sb.append(String.format("está agendado para a data/hora %sh a%n",dataHora));
-        sb.append(String.format("instalação do serviço de %s com taxa de valor %s ",tipoServico,valorServico));
+        sb.append(String.format("instalação do serviço de %s com taxa de %s ",servico,valorServico));
         sb.append("em sua residência, localizada no endereço abaixo:");
         sb.append(String.format("%n%n   \u2022 Logradouro: %s, %s%n",logradouro,numero));
         sb.append(String.format("   \u2022 Complemento: %s%n",complemento));

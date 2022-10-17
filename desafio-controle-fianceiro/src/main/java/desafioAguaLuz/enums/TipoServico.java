@@ -20,13 +20,12 @@ public enum TipoServico {
         return this.valor;
     }
 
-    public static String getServico(String tipoServico) {
-        String servico = "";
-        if (tipoServico.equals("A"))
-            servico = "Água";
-        if (tipoServico.equals("L"))
-            servico = "Luz";
-        return servico;
+    public static TipoServico getServico(String servico) {
+        for(TipoServico ts : values()){
+            if (ts.getTipo().equals(servico))
+                return ts;
+        }
+        throw new IllegalArgumentException("O tipo de serviço não existe: " + servico);
     }
 
 }
