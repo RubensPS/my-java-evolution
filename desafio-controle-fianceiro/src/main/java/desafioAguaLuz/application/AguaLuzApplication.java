@@ -39,12 +39,15 @@ public class AguaLuzApplication {
 //                "Belo Horizonte", UnidadeFederativa.valueOf("mg".toUpperCase()),"30.120-060");
 //        Contratante contratante5 = new Contratante("228.553.123.97", "32.491.339-4", "Ramon Douglas Neves de Andrade", "(31)99552-1566", endereco5);
 //        ContratoInstalacao contratoInstalacao5 = new ContratoInstalacao(1735893, TipoServico.LUZ, TipoNotificacao.SMS, contratante5);
+//
+//        String path = "C:\\Users\\ruben\\IdeaProjects\\MJV";
+//        String nomeDb = "agua-luz-output.txt";
 //        try {
-//            Cadastro.salvarCadastro(contratoInstalacao1);
-//            Cadastro.salvarCadastro(contratoInstalacao2);
-//            Cadastro.salvarCadastro(contratoInstalacao3);
-//            Cadastro.salvarCadastro(contratoInstalacao4);
-//            Cadastro.salvarCadastro(contratoInstalacao5);
+//            Cadastro.salvarCadastro(contratoInstalacao1, path, nomeDb);
+//            Cadastro.salvarCadastro(contratoInstalacao2, path, nomeDb);
+//            Cadastro.salvarCadastro(contratoInstalacao3, path, nomeDb);
+//            Cadastro.salvarCadastro(contratoInstalacao4, path, nomeDb);
+//            Cadastro.salvarCadastro(contratoInstalacao5, path, nomeDb);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -72,6 +75,7 @@ public class AguaLuzApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }

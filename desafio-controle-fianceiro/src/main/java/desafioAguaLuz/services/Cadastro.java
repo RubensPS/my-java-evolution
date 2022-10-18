@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.text.NumberFormat;
@@ -21,9 +22,7 @@ import java.util.regex.Pattern;
 public class Cadastro {
 
     public static String buscarCadastro(String path, String protocolo) throws IOException {
-
         return Files.lines(Path.of(path)).filter(c -> c.contains(protocolo)).toList().get(0);
-
     }
 
     public static void gerarRelatorio(String path, String protocoloBusca) throws IOException, ParseException {
@@ -61,30 +60,35 @@ public class Cadastro {
         exibirMensagem(sb, celular);
     }
 
-    public static void salvarCadastro(ContratoInstalacao contrato) throws IOException {
-        List<String> list = new ArrayList<>();
-        list.add(String.format("%011d", Long.parseLong(contrato.getContratante().getCpf().replaceAll("[\\.\\-]", ""))));
-        list.add(String.format("%-10.10s", contrato.getContratante().getRg().replaceAll("[\\-\\.]", "")));
-        list.add(String.format("%-30.30s", contrato.getContratante().getNome().toUpperCase()));
-        list.add(String.format("%-11.11s", contrato.getContratante().getCelular().trim().replaceAll("[\\(\\)\\-]", "")));
-        list.add(String.format("%-20.20s", contrato.getContratante().getEndereco().getLogradouro()));
-        list.add(String.format("%06d", contrato.getContratante().getEndereco().getNumero()));
-        list.add(String.format("%-10.10s", contrato.getContratante().getEndereco().getComplemento()));
-        list.add(String.format("%-15.15s", contrato.getContratante().getEndereco().getBairro().toUpperCase()));
-        list.add(String.format("%-30.30s", contrato.getContratante().getEndereco().getCidade().toUpperCase()));
-        list.add(contrato.getContratante().getEndereco().getUf().name());
-        list.add(String.format("%-8.8s", contrato.getContratante().getEndereco().getCep().replaceAll("[\\.\\-]", "")));
-        list.add(contrato.getContratante().getEndereco().getPais().getValor());
-        list.add(String.format("%010d", contrato.getProtocolo()));
-        list.add(contrato.getAgendamento().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-        list.add(contrato.getAgendamento().format(DateTimeFormatter.ofPattern("HHmm")));
-        list.add(contrato.getTipoServico().getTipo());
-        list.add(String.format("%08d", Math.round(contrato.getValorServico() * 100)));
-        list.add(contrato.getTipoNotificacao().getValor());
-        String cadastro = String.join("", list);
+    public static void salvarCadastro(ContratoInstalacao contrato, String dbFilePath, String nomeDb) throws IOException {
+        if (contrato == null)
+            throw new NullPointerException("Para salvar o contrato, o mesmo não pode ser nulo.");
+        if (dbFilePath == null || dbFilePath.isBlank() || dbFilePath.isEmpty())
+            throw new IOException("Caminho para o arquivo de database inválido");
 
-        String nomeArquivo = String.format("%s", "agua-luz-output.txt");
-        File diretorio = new File("C:\\Users\\ruben\\IdeaProjects\\MJV");
+        List<String> atributosContrato = new ArrayList<>();
+        atributosContrato.add(String.format("%011d", Long.parseLong(contrato.getContratante().getCpf().replaceAll("[\\.\\-]", ""))));
+        atributosContrato.add(String.format("%-10.10s", contrato.getContratante().getRg().replaceAll("[\\-\\.]", "")));
+        atributosContrato.add(String.format("%-30.30s", contrato.getContratante().getNome().toUpperCase()));
+        atributosContrato.add(String.format("%-11.11s", contrato.getContratante().getCelular().trim().replaceAll("[\\(\\)\\-]", "")));
+        atributosContrato.add(String.format("%-20.20s", contrato.getContratante().getEndereco().getLogradouro()));
+        atributosContrato.add(String.format("%06d", contrato.getContratante().getEndereco().getNumero()));
+        atributosContrato.add(String.format("%-10.10s", contrato.getContratante().getEndereco().getComplemento()));
+        atributosContrato.add(String.format("%-15.15s", contrato.getContratante().getEndereco().getBairro().toUpperCase()));
+        atributosContrato.add(String.format("%-30.30s", contrato.getContratante().getEndereco().getCidade().toUpperCase()));
+        atributosContrato.add(contrato.getContratante().getEndereco().getUf().name());
+        atributosContrato.add(String.format("%-8.8s", contrato.getContratante().getEndereco().getCep().replaceAll("[\\.\\-]", "")));
+        atributosContrato.add(contrato.getContratante().getEndereco().getPais().getValor());
+        atributosContrato.add(String.format("%010d", contrato.getProtocolo()));
+        atributosContrato.add(contrato.getAgendamento().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        atributosContrato.add(contrato.getAgendamento().format(DateTimeFormatter.ofPattern("HHmm")));
+        atributosContrato.add(contrato.getTipoServico().getTipo());
+        atributosContrato.add(String.format("%08d", Math.round(contrato.getValorServico() * 100)));
+        atributosContrato.add(contrato.getTipoNotificacao().getValor());
+        String cadastro = String.join("", atributosContrato);
+
+        String nomeArquivo = String.format("%s", nomeDb);
+        File diretorio = new File(dbFilePath);
         if (!diretorio.exists())
             diretorio.mkdirs();
 
